@@ -16,11 +16,14 @@ TO DO:
      [X] redimensionar a tela 
      [X] pensar sistema de coordenadas tela / base-planta (i, j)
  [X] adicionar pontos yay!
+ [ ] pau na interface de arrastar para conectar a partir do primeiro nó
+     (cosmético, visual, linhas de cores erradas ou não aparece)
  [ ]  melhorar interface de remover pontos
+      (precisa renomear/renumerar nome dos nós)
  [ ] salvar e carregar planilha
- [X] Perguntar ao Yorik sobre ler DXF... 
- [ ] fazer menu de modos
- [ ] encapsular mais coisas na classe Grid
+ [ ] Perguntar de novo ao Yorik sobre ler DXF... (e fazer testes)
+ [ ] Fazer menu de modos
+ [ ] Encapsular mais coisas na classe Grid
 
 """
 
@@ -88,7 +91,7 @@ def draw():
     if selected_v:
         i, j = grid[selected_v]
         x, y = ij_to_xy(i, j)
-        stroke(255)
+        stroke(255, 0, 0)
         strokeWeight(5)
         line(x, y, mouseX, mouseY)
 
@@ -119,6 +122,7 @@ def draw():
 
     fill(0, 0, 200)
     textSize(20)
+    textAlign(LEFT)
     text(modes[mode], 40, 40)
 
 def keyTyped():
@@ -177,7 +181,7 @@ def mousePressed():
             return
 
 def mouseDragged():
-    if selected_v is not None and mode == 0: # move
+    if (selected_v is not None) and mode == 0: # move
         dx = mouseX - pmouseX
         dy = mouseY - pmouseY
         i, j = grid[selected_v]
@@ -230,9 +234,9 @@ def ij_to_xy(i, j):
         margin + h / 2 + j * h
         )
 
-# def xy_to_ij(x, y):
-#     return ((x - margin - w / 2) / float(w),
-#             (y - margin - h / 2) / float(h))
+def xy_to_ij(x, y):
+    return ((x - margin - w / 2) / float(w),
+            (y - margin - h / 2) / float(h))
     
 def alerta(title, message):
     from javax.swing import JOptionPane
