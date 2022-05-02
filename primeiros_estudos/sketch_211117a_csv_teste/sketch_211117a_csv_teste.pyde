@@ -1,5 +1,7 @@
 from __future__ import unicode_literals, print_function
+
 import unicodecsv as csv
+import unidecodedata
 
 # Define data
 data = [
@@ -14,18 +16,18 @@ def setup():
     background(0, 100, 0)
     # textSize(24)
     textFont(createFont('Source Code Pro', 24))
-    # # Write CSV file
-    # with open("test.csv", "wb") as file:
-    #     writer = csv.writer(file)
-    #     writer.writerow(["your", "header", "foo"])  # write header
-    #     writer.writerows(data)
+    # Write CSV file
+    with open("test.csv", "wb") as file:
+        writer = csv.writer(file)
+        writer.writerow(["your", "header", "foo"])  # write header
+        writer.writerows(data)
     
     
     with open('test.csv') as file:
         reader = csv.DictReader(file)
         data_read = [row for row in reader]
         for row in data_read:
-            print(row['your'])
+            print(row['header'])
         
     
     
@@ -45,3 +47,8 @@ def setup():
     #         y += 32
     #         x = 20
     #         print()
+    
+def unaccented_string(s):
+   return  unicodedata.normalize('NFKD', s).encode('ASCII', 'ignore')
+
+print(unaccented_string('Maçã España'))
